@@ -3,6 +3,7 @@ const cors = require('cors')
 const app = express()
 const port = 3050
 
+// Dummy data
 const jobs = [{
   id: 1,
   title: 'Director - Software Engineering',
@@ -28,9 +29,12 @@ const jobs = [{
     city: 'Bengaluru'
   }
 }]
-
+// Global access allow origin *
 app.use(cors())
 
+/**
+ * API to fetch all jobs, that will be rendered as a table
+ */
 app.get('/api/jobs', (req, res) => {
   const response = jobs.map(row => ({
     id: row.id,
@@ -43,6 +47,9 @@ app.get('/api/jobs', (req, res) => {
   res.send(response)
 })
 
+/**
+ * Get job by id. This will be rendered as a modal for a particular job.
+ */
 app.get('/api/jobs/:id', (req, res) => {
   const response = jobs.find(row => row.id == req.params.id)
   res.send(response)
